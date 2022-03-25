@@ -12,10 +12,13 @@ repositories
 
 dependencies
         {
-    implementation 'javax.servlet:javax.servlet-api:4.0.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-}
+            implementation 'javax.servlet:javax.servlet-api:4.0.1'
+            implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
+            implementation 'org.postgresql:postgresql:42.3.3'
+            implementation 'de.nycode:bcrypt:2.3.0'
+            testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+            testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+        }
 
 test
         {
