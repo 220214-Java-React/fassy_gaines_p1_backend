@@ -18,7 +18,6 @@ dependencies {
     compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.2'
     implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.9.0'
-    implementation group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '9.0.60'
 }
 
 test {

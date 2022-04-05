@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -31,7 +32,18 @@ public class UserService {
         currentUser = null;
     }
 
-    public void create(User user) {
+    public void create(HashMap<String, String> myUser) {
+        User user = new User();
+
+        user.setUsername(myUser.get("username"));
+        user.setPassword(myUser.get("password"));
+        user.setEmail(myUser.get("email"));
+        user.setFname(myUser.get("fname"));
+        user.setLname(myUser.get("lname"));
+        user.setRole_ID(myUser.get("role"));
+
+        System.out.println(user.toString());
+
         String encryptedPass = encryptPassword(user.getPassword());
         user.setPassword(encryptedPass);
         user.setIs_active(true);
@@ -76,7 +88,7 @@ public class UserService {
         try
         {
             Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement pst = conn.prepareStatement("SELECT * FROM users");
+            PreparedStatement pst = conn.prepareStatement("SELECT * FROM ers_users");
             ResultSet rs = pst.executeQuery();
             while(!isUnique)
             {

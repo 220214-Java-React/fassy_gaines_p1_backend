@@ -28,9 +28,31 @@ public class UserRepository implements DAO<User>{
         // here we write our SQL to create a user
         Connection connection = null;
 
-        try {
+
+        try{
             connection = ConnectionFactory.getConnection();
-            String sql = "insert into users(user_id, username, password, email, given_name, surname, is_active, role_id) values (?, ?, ?, ?, ?, ?, ?)";
+            String roleSql = "insert into ers_user_roles(role_id, role_) values (?, ?)";
+            String sql = "insert into ers_users(user_id, username, password_, email, given_name, surname, is_active, role_id) values (?, ?, ?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement roleStmt = connection.prepareStatement(roleSql);
+            if(user.getRole_ID() == "e")
+            {
+                roleStmt.setString(1, user.getRole_ID());
+                roleStmt.setString(2, "employee");
+                roleStmt.executeUpdate();
+            }
+            else if(user.getRole_ID() == "f")
+            {
+                roleStmt.setString(1, user.getRole_ID());
+                roleStmt.setString(2, "financial manager");
+                roleStmt.executeUpdate();
+            }
+            else
+            {
+                roleStmt.setString(1, user.getRole_ID());
+                roleStmt.setString(2, "administrator");
+                roleStmt.executeUpdate();
+            }
 
             // once we have that link
             // we create a statement to be executed
@@ -47,14 +69,6 @@ public class UserRepository implements DAO<User>{
 
         } catch (Exception e) {
             logger.warn(e.getMessage(), e);
-        } finally {
-            if(connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
