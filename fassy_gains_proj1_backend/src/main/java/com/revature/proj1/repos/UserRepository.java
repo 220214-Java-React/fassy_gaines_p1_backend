@@ -34,25 +34,6 @@ public class UserRepository implements DAO<User>{
             String roleSql = "insert into ers_user_roles(role_id, role_) values (?, ?)";
             String sql = "insert into ers_users(user_id, username, password_, email, given_name, surname, is_active, role_id) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
-            PreparedStatement roleStmt = connection.prepareStatement(roleSql);
-            if(user.getRole_ID() == "e")
-            {
-                roleStmt.setString(1, user.getRole_ID());
-                roleStmt.setString(2, "employee");
-                roleStmt.executeUpdate();
-            }
-            else if(user.getRole_ID() == "f")
-            {
-                roleStmt.setString(1, user.getRole_ID());
-                roleStmt.setString(2, "financial manager");
-                roleStmt.executeUpdate();
-            }
-            else
-            {
-                roleStmt.setString(1, user.getRole_ID());
-                roleStmt.setString(2, "administrator");
-                roleStmt.executeUpdate();
-            }
 
             // once we have that link
             // we create a statement to be executed
@@ -77,36 +58,31 @@ public class UserRepository implements DAO<User>{
     // enter your password:
 
     // iterate through our list of users and find where the username matched and check the password
+    public Boolean checkUsernamePassword(String username, String password)
+    {
 
-    // in our service, when a user enters their username and password,
-    //we can run getByUsername() to get the user from the database then check their password
-    public User getByUsername(String username){
-        User user = null;
-
-        try (Connection connection = ConnectionFactory.getConnection()) {
-            String sql = "select * from ers_users where username = ?";
+        try (Connection connection = ConnectionFactory.getConnection())
+        {
+            String sql = "select * from ers_users";
             PreparedStatement stmt = connection.prepareStatement(sql);
 
-            stmt.setString(1, username);
-
-            // this
             ResultSet resultSet = stmt.executeQuery();
 
-            if(resultSet.next()){
-                user = new User(
-                        resultSet.getInt("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password_"),
-                        resultSet.getString("email"),
-                        resultSet.getString("given_name"),
-                        resultSet.getString("surname"),
-                        resultSet.getString("role_id")
-                );
+            while (resultSet.next())
+            {
+                if(username == resultSet.getString(2))
+                {
+                    if(password == resultSet.getString(4))
+                    {
+
+                    }
+                }
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             logger.warn(e.getMessage(), e);
         }
-        return user;
+        return false;
     }
 
     // select * from users where id = ?

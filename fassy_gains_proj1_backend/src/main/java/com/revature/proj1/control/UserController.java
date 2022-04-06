@@ -62,7 +62,6 @@ public class UserController extends HttpServlet {
         userService.create(myMap);
 
 
-
         // 200 - OK, 201 - Created is good if you're returning, 204 - No Content
         resp.setStatus(204);
     }

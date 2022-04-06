@@ -56,7 +56,7 @@ public class UserService {
         return userRepository.getAll();
     }
 
-    public User validate(User user){
+   /* public User validate(User user){
         // user object passed in contains whatever the user entered when logging in
         // user entered information that can compare against the db info
 
@@ -70,7 +70,7 @@ public class UserService {
             }
         }
         return null;
-    }
+    }*/
 
     private String encryptPassword(String password){
         return new String(
