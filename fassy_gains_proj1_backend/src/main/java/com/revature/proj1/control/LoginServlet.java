@@ -30,7 +30,6 @@ public class LoginServlet extends HttpServlet
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
     {
-        boolean match = false;
         String JSON = request.getReader().lines().collect(Collectors.joining());
         //User user = null;
         ObjectMapper mapper = new ObjectMapper();
